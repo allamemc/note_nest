@@ -4,16 +4,17 @@ import { apiUsers } from './api'
 function App() {
 	const [message, setMessage] = useState('')
 	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [user, setUser] = useState('')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		apiUsers.post('/newUser', { name, email, password }).then((response) => {
+		apiUsers.post('/newUser', { name, password }).then((response) => {
 			const data = response.data
 			setMessage(data.message)
+			// Store the session ID in localStorage
+			localStorage.setItem('sessionId', data.sessionId)
 		})
 	}
 
@@ -28,11 +29,7 @@ function App() {
 		apiUsers
 			.get('/me')
 			.then((response) => {
-				if (response.data) {
-					console.log(response.data)
-				} else {
-					console.log('No user')
-				}
+				console.log(response.data)
 			})
 			.catch(() => {
 				console.log('No user')
@@ -49,7 +46,7 @@ function App() {
 	return (
 		<>
 			<h1>Mensaje</h1>
-			<h2>{message}</h2>
+			<h2>Servidor: {message}</h2>
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
@@ -57,18 +54,14 @@ function App() {
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
-				<input
-					type='email'
-					placeholder='Email'
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-				/>
+				<br />
 				<input
 					type='password'
 					placeholder='Password'
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
+				<br />
 				<button type='submit'>Create User</button>
 			</form>
 			<h1>{user}</h1>

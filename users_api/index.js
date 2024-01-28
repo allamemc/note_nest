@@ -11,9 +11,13 @@ function generateSessionId() {
 app.use(bodyParser.json())
 app.use(
 	session({
-		secret: 'your-secret-key',
+		secret: 'your secret here',
 		resave: false,
 		saveUninitialized: true,
+		cookie: {
+			httpOnly: true,
+			maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
+		},
 	})
 )
 
@@ -22,10 +26,10 @@ app.get('/api/users', (req, res) => {
 })
 
 app.post('/api/users/newUser', (req, res) => {
-	const { name, email, password } = req.body
-	if (name && email && password) {
+	const { name, password } = req.body
+	if (name && password) {
 		// Create session
-		req.session.user = { name, email }
+		req.session.user = { name }
 
 		// Generate a unique session ID
 		const sessionId = generateSessionId()
@@ -34,7 +38,10 @@ app.post('/api/users/newUser', (req, res) => {
 		req.session.id = sessionId
 
 		// Send the session ID to the client in a httpOnly cookie
-		res.cookie('sessionId', sessionId, { httpOnly: true })
+		res.cookie('sessionId', sessionId, {
+			httpOnly: true,
+			maxAge: 90 * 24 * 60 * 60 * 1000,
+		})
 
 		res.json({ message: 'User created' })
 		console.log(req.session.user)
@@ -51,7 +58,7 @@ app.get('/api/users/me', (req, res) => {
 	if (session && session.user) {
 		res.json(session.user)
 	} else {
-		res.status(401).json({ message: 'Not authenticated' })
+		res.json({ message: 'Not authenticated' })
 	}
 })
 
