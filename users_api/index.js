@@ -2,13 +2,18 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
+const passport = require('passport')
+const GoogleStrategy = require('passport-google-oauth20').Strategy
+
 const app = express()
 const { v4: uuidv4 } = require('uuid')
 
 function generateSessionId() {
 	return uuidv4()
 }
+
 app.use(bodyParser.json())
+
 app.use(
 	session({
 		secret: 'your secret here',
@@ -20,6 +25,50 @@ app.use(
 		},
 	})
 )
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.serializeUser((user, done) => {
+	done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+	done(null, user)
+})
+
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID:
+				'65394186998-g0u8h2agp62pi13utnu0ebdmofjup000.apps.googleusercontent.com',
+			clientSecret: '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',
+			callbackURL: 'http://localhost:3001/auth/google/callback',
+		},
+		function (accessToken, refreshToken, profile, cb) {
+			// Aquí puedes guardar la información del usuario en tu base de datos si lo deseas
+			return cb(null, profile)
+		}
+	)
+)
+
+app.get(
+	'/auth/google',
+	passport.authenticate('google', { scope: ['profile', 'email'] })
+)
+
+app.get(
+	'/auth/google/callback',
+	passport.authenticate('google', { failureRedirect: '/login' }),
+	function (req, res) {
+		res.json({ message: 'User created' })
+	}
+)
+
+app.get('/logout', (req, res) => {
+	req.logout()
+	res.redirect('/')
+})
 
 app.get('/api/users', (req, res) => {
 	res.json({ message: 'Hello World' })
