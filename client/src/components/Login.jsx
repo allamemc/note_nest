@@ -65,7 +65,7 @@ function Login() {
 											strokeWidth='2'
 											d='M6 18L18 6M6 6l12 12'></path>
 									</svg>
-									Completa este campo
+									Completa el nombre
 								</motion.div>
 							) : null}
 
@@ -97,7 +97,7 @@ function Login() {
 											strokeWidth='2'
 											d='M6 18L18 6M6 6l12 12'></path>
 									</svg>
-									Completa este campo
+									Completa la contraseña
 								</motion.div>
 							) : null}
 							<div className='mt-6 form-control'>
