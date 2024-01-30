@@ -16,11 +16,13 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div>
-			<h1>Dashboard</h1>
-			<p>{name}</p>
+		<div className='h-screen '>
+			<div className='flex '>
+				<h1 className='text-4xl font-bold'>Tus Notas</h1>
+				<p>@{name}</p>
+			</div>
 			<form onSubmit={handleSubmit}>
-				<button className='btn' type='submit'>
+				<button className='btn bg-base-100' type='submit'>
 					Logout
 				</button>
 			</form>
