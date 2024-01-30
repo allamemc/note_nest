@@ -1,4 +1,4 @@
-export default function Modal({ handleSubmit }) {
+export default function Modal({ handleSubmit, loader }) {
 	return (
 		<dialog id='my_modal_1' className='modal'>
 			<div className='modal-box'>
@@ -15,7 +15,11 @@ export default function Modal({ handleSubmit }) {
 				<div className='modal-action'>
 					<form onSubmit={handleSubmit}>
 						<button className='btn bg-base-200' type='submit'>
-							Salir
+							{loader ? (
+								<span className='loading loading-spinner loading-sm'></span>
+							) : (
+								'Salir'
+							)}
 						</button>
 					</form>
 				</div>

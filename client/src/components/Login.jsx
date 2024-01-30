@@ -10,11 +10,13 @@ function Login() {
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
 	const [alert, setAlert] = useState(0)
+	const [loader, setLoader] = useState(false)
 	const { setUser, setNombre } = useContext(UserContext)
 	const navigate = useNavigate()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		setLoader(true)
 
 		//check if name and password are correct
 		if (name && password) {
@@ -108,7 +110,11 @@ function Login() {
 									whileTap={{ scale: 0.97 }}
 									className='text-gray-900 bg-gray-300 border-0 shadow-xl btn hover:bg-gray-400'
 									type='submit'>
-									Iniciar Sesión
+									{loader ? (
+										<span className='loading loading-spinner loading-sm'></span>
+									) : (
+										'Iniciar Sesión'
+									)}
 								</motion.button>
 							</div>
 							<div className=' divider'>or</div>
@@ -117,7 +123,7 @@ function Login() {
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.97 }}
 									className='flex-1 text-3xl border-0 shadow-2xl btn bg-base-100 hover:bg-base-300'>
-									<ion-icon name='logo-googleplus'></ion-icon>
+									<ion-icon name='logo-google'></ion-icon>
 								</motion.button>
 								<motion.button
 									whileHover={{ scale: 1.05 }}

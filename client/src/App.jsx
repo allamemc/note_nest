@@ -6,25 +6,11 @@ import {
 	Navigate,
 } from 'react-router-dom'
 import { UserContext } from './context/UserContext'
-import { motion } from 'framer-motion'
+import Loader from './components/Loader'
 
 // Importa los componentes de forma diferida
 const Login = lazy(() => import('./components/Login'))
 const Dashboard = lazy(() => import('./components/Dashboard'))
-
-function LoadingComponent() {
-	return (
-		<>
-			<div className='min-h-screen hero bg-base-200'>
-				<div className='text-center hero-content'>
-					<div className='max-w-md'>
-						<span className='loading loading-dots loading-lg'></span>
-					</div>
-				</div>
-			</div>
-		</>
-	)
-}
 
 export default function App() {
 	const { user } = useContext(UserContext)
@@ -32,7 +18,7 @@ export default function App() {
 	return (
 		<>
 			<Router>
-				<Suspense fallback={<LoadingComponent />}>
+				<Suspense fallback={<Loader />}>
 					<Routes>
 						<Route
 							exact

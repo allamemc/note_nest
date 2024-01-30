@@ -1,12 +1,27 @@
-function Note({ note, onClose }) {
+import { useState, useEffect } from 'react'
+
+function Note({ note }) {
+	const [title, setTitle] = useState(note.title)
+	const [content, setContent] = useState(note.content)
+
+	useEffect(() => {
+		setTitle(note.title)
+		setContent(note.content)
+	}, [note])
+
 	return (
-		<div className='note-overlay'>
+		<div className=' note-overlay'>
 			<div className='note-content'>
-				<h2>{note.title}</h2>
-				<p>{note.content}</p>
-				<button className='btn bg-base-100' onClick={onClose}>
-					Cerrar
-				</button>
+				<input
+					className='w-full max-w-xs text-2xl input'
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
+				/>
+				<input
+					className='w-full max-w-xs text-2xl input'
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
+				/>
 			</div>
 		</div>
 	)
