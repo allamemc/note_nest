@@ -8,3 +8,7 @@
 	box-sizing: border-box;
 	font-family: 'Satoshi', sans-serif;
 }
+
+body {
+	background: #e8e8e8;
+}

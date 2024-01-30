@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 function Login() {
-	const [name, setName] = useState(null)
-	const [password, setPassword] = useState(null)
+	const [name, setName] = useState('')
+	const [password, setPassword] = useState('')
 	const [alert, setAlert] = useState(0)
 	const { setUser, setNombre } = useContext(UserContext)
 	const navigate = useNavigate()
@@ -23,9 +23,9 @@ function Login() {
 				setNombre(name)
 				navigate('/dashboard')
 			})
-		} else if (name === null) {
+		} else if (name === '') {
 			setAlert(1)
-		} else if (password === null) {
+		} else if (password === '') {
 			setAlert(2)
 		}
 	}
@@ -39,11 +39,12 @@ function Login() {
 							<h2 className='text-4xl font-black text-center'>Note Nest</h2>
 							<div className='form-control'>
 								<label className='label'>
-									<span className='label-text'>Name</span>
+									<span className='label-text'>Nombre</span>
 								</label>
 								<motion.input
+									whileFocus={{ x: 5 }}
 									type='text'
-									placeholder='Name'
+									placeholder='John Doe'
 									value={name}
 									onChange={(e) => setName(e.target.value)}
 									className='border-0 input input-bordered'
@@ -71,11 +72,12 @@ function Login() {
 
 							<div className='form-control'>
 								<label className='label'>
-									<span className='label-text'>Password</span>
+									<span className='label-text'>Contraseña</span>
 								</label>
 								<motion.input
+									whileFocus={{ x: 5 }}
 									type='password'
-									placeholder='Password'
+									placeholder='*******'
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 									className='input input-bordered'
@@ -106,7 +108,7 @@ function Login() {
 									whileTap={{ scale: 0.97 }}
 									className='text-gray-900 bg-gray-300 border-0 shadow-xl btn hover:bg-gray-400'
 									type='submit'>
-									Log In
+									Iniciar Sesión
 								</motion.button>
 							</div>
 							<div className=' divider'>or</div>
