@@ -1,6 +1,7 @@
 import { pagination } from '../service/pagination'
-const Pagination = ({ count, page, onChange }) => {
+const Pagination = ({ count, page, onChange, createNote }) => {
 	const { handlePrevious, handleNext } = pagination({ count, page, onChange })
+
 	return (
 		<div className='flex gap-7'>
 			<button
@@ -8,6 +9,11 @@ const Pagination = ({ count, page, onChange }) => {
 				onClick={handlePrevious}
 				disabled={page === 1}>
 				<ion-icon name='caret-back'></ion-icon>
+			</button>
+			<button
+				className='border-0 shadow-xl btn btn-circle bg-base-300 hover:bg-base-200'
+				onClick={createNote}>
+				<ion-icon name='add-outline'></ion-icon>
 			</button>
 			<button
 				className='border-0 shadow-xl btn btn-circle bg-base-300 hover:bg-base-200'

@@ -8,6 +8,7 @@ import { logout } from '../service/login'
 import Pagination from './Pagination'
 import Note from './Note'
 import Modal from './Modal'
+import './Dashboard.css'
 
 export default function Dashboard() {
 	const { setUser, name } = useContext(UserContext)
@@ -46,8 +47,8 @@ export default function Dashboard() {
 
 	return (
 		<div className='flex items-center self-center justify-center min-h-screen bg-base-200'>
-			<div className='flex ' style={{ minHeight: '552px' }}>
-				<div className='flex flex-co'>
+			<div className='flex gap-10' style={{ minHeight: '552px' }}>
+				<div className='flex movil'>
 					<div className='flex flex-col'>
 						<h1 className='mb-5 text-4xl font-black border-b-4 border-base-300'>
 							Tus Notas
@@ -79,30 +80,27 @@ export default function Dashboard() {
 									count={pageCount}
 									page={currentPage}
 									onChange={handlePageChange}
+									createNote={() => showNote({ title: '', content: '' })}
 									color='primary'
 								/>
 							</div>
 						</motion.div>
 					</div>
 				</div>
-				<div className='flex flex-col w-1/2'>
-					<div className='flex '>
-						<p>@{name}</p>
+				<div className='flex flex-col w-full gap-5'>
+					<div className='flex items-center self-end gap-3 mb-3'>
+						<p className='font-bold'>@{name}</p>
 						<motion.button
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.97 }}
-							className='shadow-current btn btn-circle btn-sm bg-base-200 hover:bg-base-300'
+							className='border-0 shadow-xl btn btn-sm bg-base-300 hover:bg-base-100'
 							onClick={() => document.getElementById('my_modal_1').showModal()}>
 							<ion-icon name='exit'></ion-icon>
 						</motion.button>
 					</div>
 
 					<Note
-						note={
-							selectedNote
-								? selectedNote
-								: { title: '200', content: 'dwadwadwas' }
-						}
+						note={selectedNote ? selectedNote : { title: '', content: '' }}
 					/>
 				</div>
 			</div>

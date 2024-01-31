@@ -16,10 +16,10 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		setLoader(true)
 
 		//check if name and password are correct
 		if (name && password) {
+			setLoader(true)
 			apiUsers.post('/login', { name, password }).then(() => {
 				setUser(true)
 				setNombre(name)
@@ -113,7 +113,7 @@ function Login() {
 									{loader ? (
 										<span className='loading loading-spinner loading-sm'></span>
 									) : (
-										'Iniciar Sesión'
+										'Ver tus Notas'
 									)}
 								</motion.button>
 							</div>

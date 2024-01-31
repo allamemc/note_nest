@@ -29,26 +29,6 @@
 			"id": 6,
 			"title": "Note 6",
 			"content": "Content of Note 6"
-		},
-		{
-			"id": 7,
-			"title": "Note 7",
-			"content": "Content of Note 7"
-		},
-		{
-			"id": 8,
-			"title": "Note 8",
-			"content": "Content of Note 8"
-		},
-		{
-			"id": 9,
-			"title": "Note 9",
-			"content": "Content of Note 9"
-		},
-		{
-			"id": 10,
-			"title": "Note 10",
-			"content": "Content of Note 10"
 		}
 	]
 }
