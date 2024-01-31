@@ -16,27 +16,33 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		const buttonClicked = e.nativeEvent.submitter.id
 
-		if (name && password) {
+		if (buttonClicked === 'google-button') {
 			setLoader(true)
-			apiUsers
-				.post('/login', { name, password })
-				.then(() => {
-					setUser(true)
-					setNombre(name)
+			window.location.href = 'http://localhost:3001/api/google'
+		} else if (buttonClicked === 'login-button') {
+			if (name && password) {
+				setLoader(true)
+				apiUsers
+					.post('/login', { name, password })
+					.then(() => {
+						setUser(true)
+						setNombre(name)
 
-					navigate('/dashboard')
-				})
-				.catch((error) => {
-					setLoader(false)
-					if (error.response && error.response.status === 401) {
-						setAlert(3)
-					}
-				})
-		} else if (name === '') {
-			setAlert(1)
-		} else if (password === '') {
-			setAlert(2)
+						navigate('/dashboard')
+					})
+					.catch((error) => {
+						setLoader(false)
+						if (error.response && error.response.status === 401) {
+							setAlert(3)
+						}
+					})
+			} else if (name === '') {
+				setAlert(1)
+			} else if (password === '') {
+				setAlert(2)
+			}
 		}
 	}
 
@@ -135,6 +141,7 @@ function Login() {
 								<motion.button
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.97 }}
+									id='login-button'
 									className='text-gray-900 bg-gray-300 border-0 shadow-xl btn hover:bg-gray-400'
 									type='submit'>
 									{loader ? (
@@ -147,16 +154,26 @@ function Login() {
 							<div className=' divider'>or</div>
 							<div className='flex w-full gap-5'>
 								<motion.button
+									id='google-button'
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.97 }}
 									className='flex-1 text-3xl border-0 shadow-2xl btn bg-base-100 hover:bg-base-300'>
-									<ion-icon name='logo-google'></ion-icon>
+									{loader ? (
+										<span className='loading loading-spinner loading-sm'></span>
+									) : (
+										<ion-icon name='logo-google'></ion-icon>
+									)}
 								</motion.button>
 								<motion.button
+									id='guest-button'
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.97 }}
 									className='flex-1 text-white shadow-2xl btn bg-slate-700 hover:bg-slate-800 '>
-									Invitado
+									{loader ? (
+										<span className='loading loading-spinner loading-sm'></span>
+									) : (
+										'Invitado'
+									)}
 								</motion.button>
 							</div>
 						</form>

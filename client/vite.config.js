@@ -10,6 +10,8 @@ export default defineConfig({
 			'/api/users/': 'http://localhost:3001',
 			//API NOTES
 			'/api/notes/': 'http://localhost:3001',
+			//API GOOGLE
+			'/api/google/': 'http://localhost:3001',
 		},
 	},
 })
