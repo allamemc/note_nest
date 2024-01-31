@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -46,7 +46,6 @@ export default function Dashboard() {
 			opacity: 1,
 		},
 	}
-
 	return (
 		<div className='flex items-center self-center justify-center min-h-screen bg-base-200'>
 			<div className='flex gap-10' style={{ minHeight: '552px' }}>
@@ -55,7 +54,6 @@ export default function Dashboard() {
 						<h1 className='mb-5 text-4xl font-black border-b-4 border-base-300'>
 							Tus Notas
 						</h1>
-
 						<motion.div
 							className='flex flex-col gap-4'
 							variants={container}
@@ -76,7 +74,6 @@ export default function Dashboard() {
 									</div>
 								</motion.button>
 							))}
-
 							<div className='flex justify-center '>
 								<Pagination
 									count={pageCount}
@@ -89,8 +86,16 @@ export default function Dashboard() {
 						</motion.div>
 					</div>
 				</div>
-				<div className='flex flex-col w-full gap-5'>
-					<div className='flex items-center self-end gap-3 mb-3'>
+
+				<div className='flex flex-col w-full gap-5 '>
+					<div className='flex items-center self-end gap-3 mb-3 movil2'>
+						{/* <motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.97 }}
+							className='border-0 shadow-xl btn btn-sm bg-base-300 hover:bg-base-100 hamburguesa'
+							onClick={() => document.getElementById('my_modal_3').showModal()}>
+							<ion-icon name='list'></ion-icon>
+						</motion.button> */}
 						<p className='font-bold'>@{name}</p>
 						<motion.button
 							whileHover={{ scale: 1.05 }}

@@ -9,22 +9,32 @@ export function UserProvider({ children }) {
 	const [name, setNombre] = useState(null)
 	const [id, setId] = useState(null)
 
-	apiUsers.get('/me').then((response) => {
-		if (response.data.name) {
-			setUser(true)
-			setNombre(response.data.name)
-			setId(response.data._id)
-			localStorage.setItem('user', response.data.name)
-		} else {
-			setUser(false)
-			setNombre(null)
-			setId(null)
-			localStorage.removeItem('user')
+	async function fetchUserData() {
+		try {
+			const response = await apiUsers.get('/me')
+			if (response.data.name) {
+				setUser(true)
+				setNombre(response.data.name)
+				setId(response.data._id)
+				localStorage.setItem('user', response.data.name)
+				return response.data._id // Devolver la ID obtenida
+			} else {
+				setUser(false)
+				setNombre(null)
+				setId(null)
+				localStorage.removeItem('user')
+				return null // Devolver null si no se encuentra el usuario
+			}
+		} catch (error) {
+			console.error('Error al obtener los datos del usuario:', error)
+			return null // Manejar el error devolviendo null
 		}
-	})
+	}
+	fetchUserData()
 
 	return (
-		<UserContext.Provider value={{ user, setUser, name, setNombre, id, setId }}>
+		<UserContext.Provider
+			value={{ user, setUser, name, setNombre, id, setId, fetchUserData }}>
 			{children}
 		</UserContext.Provider>
 	)

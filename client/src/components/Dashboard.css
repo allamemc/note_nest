@@ -2,4 +2,16 @@
 	.movil {
 		display: none;
 	}
+	.hamburguesa {
+		display: block;
+	}
+	.movil2 {
+		margin: 10px;
+	}
+}
+
+@media (width >= 870px) {
+	.hamburguesa {
+		display: none;
+	}
 }

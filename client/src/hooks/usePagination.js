@@ -7,13 +7,23 @@ import { UserContext } from '../context/UserContext'
 
 export function useNote() {
 	const [notes, setNotes] = useState([])
-	const { id } = useContext(UserContext)
+	const { fetchUserData } = useContext(UserContext)
+
+	async function fetchData() {
+		const userId = await fetchUserData() // Esperar a que se obtenga la ID del usuario
+		if (userId) {
+			try {
+				const response = await apiNotes.get(`/${userId}`)
+				setNotes(response.data)
+			} catch (error) {
+				throw new Error(error)
+			}
+		}
+	}
 
 	useEffect(() => {
-		apiNotes.get(`/${id}`).then((response) => {
-			setNotes(response.data)
-		})
-	}, [id])
+		fetchData() // Llamar a la función para obtener los datos
+	}, [])
 
 	return { notes }
 }

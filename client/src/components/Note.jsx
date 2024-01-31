@@ -53,7 +53,7 @@ function Note({ note }) {
 						className='flex w-full gap-5'
 						initial={{ opacity: 0, x: 100 }}
 						animate={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.5 }}>
+						transition={{ duration: 0.3 }}>
 						<motion.input
 							className='mb-4 text-2xl font-bold input'
 							placeholder='Título'
@@ -100,16 +100,19 @@ function Note({ note }) {
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.5 }}></motion.textarea>
 				</motion.div>
-			</motion.div>
-			<div className='flex'>
 				<motion.button
+					initial={{ opacity: 0, x: 100 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ duration: 0.7 }}
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.97 }}
 					onClick={saveNote}
+					style={{ marginTop: '10px' }}
 					className='border-0 shadow-xl btn bg-base-300 hover:bg-base-200'>
 					Guardar cambios
 				</motion.button>
-			</div>
+			</motion.div>
+
 			<ModalDelete handleSubmit={handleSubmit} loader={loader} />
 		</>
 	)
