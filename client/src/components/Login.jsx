@@ -29,7 +29,6 @@ function Login() {
 					.then(() => {
 						setUser(true)
 						setNombre(name)
-
 						navigate('/dashboard')
 					})
 					.catch((error) => {
@@ -43,6 +42,7 @@ function Login() {
 			} else if (password === '') {
 				setAlert(2)
 			}
+		} else if (buttonClicked === 'guest-button') {
 		}
 	}
 
@@ -52,7 +52,9 @@ function Login() {
 				<div className='flex-col w-full hero-content lg:flex-row-reverse'>
 					<div className='w-full max-w-md card shrink-0 '>
 						<form className='card-body' onSubmit={handleSubmit}>
-							<h2 className='text-4xl font-black text-center'>Note Nest</h2>
+							<div className='flex justify-center '>
+								<h2 className='text-4xl font-black text-center'>Note Nest</h2>
+							</div>
 							<div className='form-control'>
 								<label className='label'>
 									<span className='label-text'>Nombre</span>

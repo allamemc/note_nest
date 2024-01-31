@@ -43,6 +43,36 @@ router.post('/login', async (req, res) => {
 	}
 })
 
+router.post('/guest', async (req, res) => {
+	try {
+		// Define el nombre y la contraseña del usuario invitado
+		const guestName = 'Guest'
+		const guestPassword = 'GuestPassword'
+
+		// Busca el usuario invitado en la base de datos
+		let user = await User.findOne({ name: guestName })
+
+		// Si el usuario invitado no existe, crea uno nuevo
+		if (!user) {
+			user = new User({ name: guestName, password: guestPassword })
+			await user.save()
+		}
+
+		// Inicia sesión con el usuario invitado
+		req.session.user = { name: user.name, _id: user._id }
+		const sessionId = generateSessionId()
+		req.session.id = sessionId
+		res.cookie('sessionId', sessionId, {
+			httpOnly: true,
+			maxAge: 90 * 24 * 60 * 60 * 1000,
+		})
+		return res.json({ message: 'Login successful' })
+	} catch (err) {
+		console.error(err)
+		return res.status(500).json({ message: 'Internal server error' })
+	}
+})
+
 router.get('/me', (req, res) => {
 	// Get the session from the request
 	const session = req.session
