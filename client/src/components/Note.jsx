@@ -11,11 +11,12 @@ function Note({ note }) {
 	const [_id, setId] = useState(null)
 
 	const { id } = useContext(UserContext)
+	const user_id = id
 
 	useEffect(() => {
 		setTitle(note.title)
 		setContent(note.content)
-		if (note._id) setId(note._id)
+		setId(note._id)
 	}, [note])
 
 	const saveNote = () => {
@@ -25,8 +26,8 @@ function Note({ note }) {
 				setContent(content)
 				window.location.reload()
 			})
-		} else {
-			apiNotes.post(`/create/${id}`, { title, content }).then(() => {
+		} else if (_id === undefined) {
+			apiNotes.post(`/create/${id}`, { title, content, user_id }).then(() => {
 				setTitle(title)
 				setContent(content)
 				window.location.reload()

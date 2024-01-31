@@ -11,9 +11,9 @@ import Modal from './Modal'
 import './Dashboard.css'
 
 export default function Dashboard() {
-	// const { userData } = useContext(UserContext)
 	const { setUser, name } = useContext(UserContext)
 	const { selectedNote, showNote } = useNote()
+	console.log(selectedNote)
 	const [loader, setLoader] = useState(false)
 
 	const { pageCount, currentPage, handlePageChange, displayedNotes } =
