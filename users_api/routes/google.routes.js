@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const GoogleStrategy = require('../strategy/passportGoogle')
+require('./passportGoogle')
 const passport = require('passport')
 const dotenv = require('dotenv')
 dotenv.config()

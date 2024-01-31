@@ -42,7 +42,8 @@ app.use('/api/users', userRoutes)
 app.use('/api/google', googleRoutes)
 app.use('/api/notes', notesRoutes)
 
-const PORT = 3000
+const PORT = 3002
 app.listen(PORT, () => {
 	console.log(`Server running on port PORT ${PORT}`)
 })
+module.exports = app
