@@ -7,11 +7,11 @@ export default defineConfig({
 	server: {
 		proxy: {
 			//API USUARIOS
-			'/api/users/': 'http://localhost:3001',
+			'/api/users/': 'https://server-note-nest.fly.dev/',
 			//API NOTES
-			'/api/notes/': 'http://localhost:3001',
+			'/api/notes/': 'https://server-note-nest.fly.dev/',
 			//API GOOGLE
-			'/api/google/': 'http://localhost:3001',
+			'/api/google/': 'https://server-note-nest.fly.dev/',
 		},
 	},
 })

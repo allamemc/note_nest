@@ -34,11 +34,15 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.get('/', (req, res) => {
+	res.send('Hello World!')
+})
+
 app.use('/api/users', userRoutes)
 app.use('/api/google', googleRoutes)
 app.use('/api/notes', notesRoutes)
 
-const PORT = 3001
+const PORT = 3000
 app.listen(PORT, () => {
 	console.log(`Server running on port PORT ${PORT}`)
 })
