@@ -43,6 +43,20 @@ function Login() {
 				setAlert(2)
 			}
 		} else if (buttonClicked === 'guest-button') {
+			setLoader(true)
+			apiUsers
+				.post('/guest')
+				.then(() => {
+					setUser(true)
+					setNombre('Invitado')
+					navigate('/dashboard')
+				})
+				.catch((error) => {
+					setLoader(false)
+					if (error.response && error.response.status === 401) {
+						setAlert(3)
+					}
+				})
 		}
 	}
 

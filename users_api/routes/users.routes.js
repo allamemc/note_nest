@@ -46,8 +46,8 @@ router.post('/login', async (req, res) => {
 router.post('/guest', async (req, res) => {
 	try {
 		// Define el nombre y la contraseña del usuario invitado
-		const guestName = 'Guest'
-		const guestPassword = 'GuestPassword'
+		const guestName = 'Invitado'
+		const guestPassword = '123'
 
 		// Busca el usuario invitado en la base de datos
 		let user = await User.findOne({ name: guestName })
