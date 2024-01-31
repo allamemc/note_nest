@@ -11,6 +11,7 @@ import Modal from './Modal'
 import './Dashboard.css'
 
 export default function Dashboard() {
+	// const { userData } = useContext(UserContext)
 	const { setUser, name } = useContext(UserContext)
 	const { selectedNote, showNote } = useNote()
 	const [loader, setLoader] = useState(false)
@@ -25,6 +26,7 @@ export default function Dashboard() {
 		setLoader(true)
 		logout({ setUser, navigate })
 	}
+
 	const container = {
 		hidden: { opacity: 1, scale: 0 },
 		visible: {
@@ -59,9 +61,9 @@ export default function Dashboard() {
 							variants={container}
 							initial='hidden'
 							animate='visible'>
-							{displayedNotes.map((note) => (
+							{displayedNotes.map((note, index) => (
 								<motion.button
-									key={note.id}
+									key={index}
 									variants={item}
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.97 }}
@@ -94,7 +96,7 @@ export default function Dashboard() {
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.97 }}
 							className='border-0 shadow-xl btn btn-sm bg-base-300 hover:bg-base-100'
-							onClick={() => document.getElementById('my_modal_1').showModal()}>
+							onClick={() => document.getElementById('my_modal_3').showModal()}>
 							<ion-icon name='exit'></ion-icon>
 						</motion.button>
 					</div>

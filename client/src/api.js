@@ -4,12 +4,8 @@ const apiUsers = axios.create({
 	baseURL: '/api/users/',
 })
 
-const apiAuth = axios.create({
-	baseURL: '/api/auth/',
+const apiNotes = axios.create({
+	baseURL: '/api/notes/',
 })
 
-const apiPosts = axios.create({
-	baseURL: '/api/posts/',
-})
-
-export { apiUsers, apiAuth, apiPosts }
+export { apiUsers, apiNotes }

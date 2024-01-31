@@ -1,6 +1,6 @@
 export default function Modal({ handleSubmit, loader }) {
 	return (
-		<dialog id='my_modal_1' className='modal'>
+		<dialog id='my_modal_3' className='modal'>
 			<div className='modal-box'>
 				<form method='dialog'>
 					<button className='absolute btn btn-sm btn-circle btn-ghost right-2 top-2'>

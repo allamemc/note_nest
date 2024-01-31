@@ -25,6 +25,7 @@ export default function App() {
 							path='/'
 							element={user ? <Navigate to='/dashboard' /> : <Login />}
 						/>
+
 						<Route
 							exact
 							path='/dashboard'

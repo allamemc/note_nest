@@ -17,14 +17,22 @@ function Login() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		//check if name and password are correct
 		if (name && password) {
 			setLoader(true)
-			apiUsers.post('/login', { name, password }).then(() => {
-				setUser(true)
-				setNombre(name)
-				navigate('/dashboard')
-			})
+			apiUsers
+				.post('/login', { name, password })
+				.then(() => {
+					setUser(true)
+					setNombre(name)
+
+					navigate('/dashboard')
+				})
+				.catch((error) => {
+					setLoader(false)
+					if (error.response && error.response.status === 401) {
+						setAlert(3)
+					}
+				})
 		} else if (name === '') {
 			setAlert(1)
 		} else if (password === '') {
@@ -102,6 +110,25 @@ function Login() {
 											d='M6 18L18 6M6 6l12 12'></path>
 									</svg>
 									Completa la contraseña
+								</motion.div>
+							) : null}
+							{alert === 3 ? (
+								<motion.div
+									className='gap-2 badge badge-warning'
+									initial={{ opacity: 0, scale: 0, x: -100 }}
+									animate={{ opacity: 1, scale: 1, x: 0 }}>
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+										className='inline-block w-4 h-4 stroke-current'>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='M6 18L18 6M6 6l12 12'></path>
+									</svg>
+									Contraseña incorrecta
 								</motion.div>
 							) : null}
 							<div className='mt-6 form-control'>

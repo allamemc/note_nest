@@ -8,10 +8,8 @@ export default defineConfig({
 		proxy: {
 			//API USUARIOS
 			'/api/users/': 'http://localhost:3001',
-			//API AUTH
-			'/api/auth/': 'http://localhost:3000',
-			//API POSTS
-			'/api/posts/': 'http://localhost:3000',
+			//API NOTES
+			'/api/notes/': 'http://localhost:3001',
 		},
 	},
 })

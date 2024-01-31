@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const uuidv4 = require('uuid').v4
 
+function generateSessionId() {
+	return uuidv4()
+}
 const User = require('../models/User')
 
 router.post('/login', async (req, res) => {
@@ -10,35 +14,26 @@ router.post('/login', async (req, res) => {
 		try {
 			let user = await User.findOne({ name })
 
-			if (user) {
-				// User exists, check password
-				if (user.password === password) {
-					// Password is correct
-					req.session.user = { name }
-					const sessionId = generateSessionId()
-					req.session.id = sessionId
-					res.cookie('sessionId', sessionId, {
-						httpOnly: true,
-						maxAge: 90 * 24 * 60 * 60 * 1000,
-					})
-					return res.json({ message: 'Login successful' })
-				} else {
-					// Password is incorrect
-					return res.status(401).json({ message: 'Incorrect password' })
-				}
-			} else {
-				// User does not exist, create new user
+			if (!user) {
+				// Si el usuario no existe, crea uno nuevo
 				user = new User({ name, password })
 				await user.save()
-				req.session.user = { name }
-				const sessionId = generateSessionId()
-				req.session.id = sessionId
-				res.cookie('sessionId', sessionId, {
-					httpOnly: true,
-					maxAge: 90 * 24 * 60 * 60 * 1000,
-				})
-				return res.json({ message: 'User created and logged in' })
+			} else {
+				// Si el usuario existe, verifica la contraseña
+				if (user.password !== password) {
+					return res.status(401).json({ message: 'Incorrect password' })
+				}
 			}
+
+			// Inicia sesión con el usuario
+			req.session.user = { name: user.name, _id: user._id }
+			const sessionId = generateSessionId()
+			req.session.id = sessionId
+			res.cookie('sessionId', sessionId, {
+				httpOnly: true,
+				maxAge: 90 * 24 * 60 * 60 * 1000,
+			})
+			return res.json({ message: 'Login successful' })
 		} catch (err) {
 			console.error(err)
 			return res.status(500).json({ message: 'Internal server error' })

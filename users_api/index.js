@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const db = require('./config/db')
 const userRoutes = require('./routes/users.routes')
+const notesRoutes = require('./routes/notes.routes')
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use(
 )
 
 app.use('/api/users', userRoutes)
+app.use('/api/notes', notesRoutes)
 
 const PORT = 3001
 app.listen(PORT, () => {
