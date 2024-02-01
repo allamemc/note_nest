@@ -20,7 +20,8 @@ function Login() {
 
 		if (buttonClicked === 'google-button') {
 			setLoader(true)
-			window.location.href = 'http://localhost:3001/api/google'
+			window.location.href =
+				'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io/api/google'
 		} else if (buttonClicked === 'login-button') {
 			if (name && password) {
 				setLoader(true)

@@ -13,7 +13,9 @@ db()
 
 app.use(
 	cors({
-		origin: 'https://note-nest-es.vercel.app/',
+		origin: 'https://note-nest-es.vercel.app',
+		methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
+		allowedHeaders: ['Content-Type', 'Authorization'], // Especifica los encabezados permitidos
 	})
 )
 
