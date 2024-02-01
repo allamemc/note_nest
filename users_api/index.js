@@ -13,7 +13,7 @@ db()
 
 app.use(
 	cors({
-		origin: 'https://note-nest.fly.dev/',
+		origin: 'https://note-nest-es.vercel.app/',
 	})
 )
 

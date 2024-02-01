@@ -36,10 +36,10 @@ router.get('/success', (req, res) => {
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		})
 		// Redirige al usuario a la página de inicio o dashboard en caso de autenticación exitosa
-		return res.redirect('https://note-nest.fly.dev/dashboard')
+		return res.redirect('https://note-nest-es.vercel.app/dashboard')
 	}
 	// Redirige al usuario a la página de error en caso de fallo de autenticación
-	return res.redirect('https://note-nest.fly.dev/error')
+	return res.redirect('https://note-nest-es.vercel.app/error')
 })
 
 router.get('/failure', (req, res) => {
