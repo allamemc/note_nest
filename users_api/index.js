@@ -13,14 +13,12 @@ db()
 
 app.use(
 	cors({
-		origin: 'https://note-nest-es.vercel.app',
-		methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
-		allowedHeaders: ['Content-Type', 'Authorization'], // Especifica los encabezados permitidos
+		origin: 'https://client-note.fly.dev',
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		allowedHeaders: ['Content-Type', 'Authorization'],
+		credentials: true,
 	})
 )
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
 
 app.use(
 	session({
@@ -29,10 +27,13 @@ app.use(
 		saveUninitialized: true,
 		cookie: {
 			httpOnly: true,
-			maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
+			maxAge: 90 * 24 * 60 * 60 * 1000,
 		},
 	})
 )
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use(passport.session())
 

@@ -75,13 +75,18 @@ router.post('/guest', async (req, res) => {
 
 router.get('/me', (req, res) => {
 	// Get the session from the request
+	//and cookie
 	const session = req.session
 
 	// If there is a user in the session, return it
 	if (session && session.user) {
 		res.json(session.user)
 	} else {
-		res.json({ message: 'Not authenticated' })
+		res.json({
+			message: 'Not authenticated',
+			session: session,
+			user: session.user,
+		})
 	}
 })
 

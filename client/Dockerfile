@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=20.10.0
+ARG NODE_VERSION=18.18.0
 FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Vite"
@@ -13,7 +13,7 @@ WORKDIR /app
 ENV NODE_ENV="production"
 
 # Install pnpm
-ARG PNPM_VERSION=8.14.3
+ARG PNPM_VERSION=8.14.1
 RUN npm install -g pnpm@$PNPM_VERSION
 
 
@@ -34,6 +34,10 @@ COPY --link . .
 # Build application
 RUN pnpm run build
 
+
+
+
+
 # Remove development dependencies
 RUN pnpm prune --prod
 
@@ -44,6 +48,8 @@ FROM nginx
 # Copy built application
 COPY --from=build /app/dist /usr/share/nginx/html
 
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 80
-CMD [ "/usr/sbin/nginx", "-g", "daemon off;" ]
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
