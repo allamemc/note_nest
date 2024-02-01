@@ -29,20 +29,13 @@ router.post('/login', async (req, res) => {
 		}
 
 		// Verifica si el usuario ya tiene una sesión activa
-		if (!req.session.user) {
-			// Inicia sesión con el usuario solo si no hay una sesión activa
-			req.session.user = { name: user.name, _id: user._id }
-
-			// Genera un nuevo ID de sesión
-			const sessionId = generateSessionId()
-			req.session.id = sessionId
-
-			// Envía la cookie de sesión al cliente
-			res.cookie('sessionId', sessionId, {
-				httpOnly: true,
-				maxAge: 90 * 24 * 60 * 60 * 1000,
-			})
-		}
+		req.session.user = { name: user.name, _id: user._id }
+		const sessionId = generateSessionId()
+		req.session.id = sessionId
+		res.cookie('sessionId', sessionId, {
+			httpOnly: true,
+			maxAge: 90 * 24 * 60 * 60 * 1000,
+		})
 
 		return res.json({ message: 'Login successful' })
 	} catch (err) {

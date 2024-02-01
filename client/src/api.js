@@ -1,22 +1,15 @@
 import axios from 'axios'
 
-const baseConfig = {
-	withCredentials: true,
-}
-
 const apiUsers = axios.create({
-	baseURL: 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io/api/users/',
-	...baseConfig,
+	baseURL: '/api/users/',
 })
 
 const apiGoogle = axios.create({
-	baseURL: 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io/api/google/',
-	...baseConfig,
+	baseURL: '/api/google/',
 })
 
 const apiNotes = axios.create({
-	baseURL: 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io/api/notes/',
-	...baseConfig,
+	baseURL: '/api/notes/',
 })
 
 export { apiUsers, apiNotes, apiGoogle }

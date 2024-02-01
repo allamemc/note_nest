@@ -7,11 +7,11 @@ export default defineConfig({
 	server: {
 		proxy: {
 			//API USUARIOS
-			'/api/users/': 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io',
+			'/api/users/': 'http://localhost:3000',
 			//API NOTES
-			'/api/notes/': 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io',
+			'/api/notes/': 'http://localhost:3000',
 			//API GOOGLE
-			'/api/google/': 'https://server-note-nest-dev-rxzx.2.ie-1.fl0.io',
+			'/api/google/': 'http://localhost:3000',
 		},
 	},
 })

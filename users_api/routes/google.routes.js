@@ -36,10 +36,10 @@ router.get('/success', (req, res) => {
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		})
 		// Redirige al usuario a la página de inicio o dashboard en caso de autenticación exitosa
-		return res.redirect('https://client-note.fly.dev/dashboard')
+		return res.redirect('http://localhost:5173/dashboard')
 	}
 	// Redirige al usuario a la página de error en caso de fallo de autenticación
-	return res.redirect('https://client-note.fly.dev/error')
+	return res.redirect('http://localhost:5173/error')
 })
 
 router.get('/failure', (req, res) => {
