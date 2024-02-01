@@ -10,36 +10,44 @@ const User = require('../models/User')
 router.post('/login', async (req, res) => {
 	const { name, password } = req.body
 
-	if (name && password) {
-		try {
-			let user = await User.findOne({ name })
+	if (!name || !password) {
+		return res.status(400).json({ message: 'Invalid input' })
+	}
 
-			if (!user) {
-				// Si el usuario no existe, crea uno nuevo
-				user = new User({ name, password })
-				await user.save()
-			} else {
-				// Si el usuario existe, verifica la contraseña
-				if (user.password !== password) {
-					return res.status(401).json({ message: 'Incorrect password' })
-				}
+	try {
+		let user = await User.findOne({ name })
+
+		if (!user) {
+			// Si el usuario no existe, crea uno nuevo
+			user = new User({ name, password })
+			await user.save()
+		} else {
+			// Si el usuario existe, verifica la contraseña
+			if (user.password !== password) {
+				return res.status(401).json({ message: 'Incorrect password' })
 			}
+		}
 
-			// Inicia sesión con el usuario
+		// Verifica si el usuario ya tiene una sesión activa
+		if (!req.session.user) {
+			// Inicia sesión con el usuario solo si no hay una sesión activa
 			req.session.user = { name: user.name, _id: user._id }
+
+			// Genera un nuevo ID de sesión
 			const sessionId = generateSessionId()
 			req.session.id = sessionId
+
+			// Envía la cookie de sesión al cliente
 			res.cookie('sessionId', sessionId, {
 				httpOnly: true,
 				maxAge: 90 * 24 * 60 * 60 * 1000,
 			})
-			return res.json({ message: 'Login successful' })
-		} catch (err) {
-			console.error(err)
-			return res.status(500).json({ message: 'Internal server error' })
 		}
-	} else {
-		return res.status(400).json({ message: 'Invalid input' })
+
+		return res.json({ message: 'Login successful' })
+	} catch (err) {
+		console.error(err)
+		return res.status(500).json({ message: 'Internal server error' })
 	}
 })
 
@@ -75,19 +83,15 @@ router.post('/guest', async (req, res) => {
 
 router.get('/me', (req, res) => {
 	// Get the session from the request
-	//and cookie
 	const session = req.session
 
-	// If there is a user in the session, return it
-	if (session && session.user) {
-		res.json(session.user)
-	} else {
-		res.json({
-			message: 'Not authenticated',
-			session: session,
-			user: session.user,
-		})
+	// If there is no session or no user in the session, return not authenticated
+	if (!session || !session.user) {
+		return res.status(401).json({ message: 'Not authenticated' })
 	}
+
+	// If there is a user in the session, return it
+	res.json(session.user)
 })
 
 router.post('/logout', (req, res) => {

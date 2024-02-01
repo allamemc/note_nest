@@ -11,7 +11,7 @@ export function UserProvider({ children }) {
 
 	async function fetchUserData() {
 		try {
-			const response = await apiUsers.get('/me')
+			const response = await apiUsers.get('/me', { withCredentials: true })
 			if (response.data.name) {
 				console.log('Usuario encontrado:', response.data)
 				setUser(true)
