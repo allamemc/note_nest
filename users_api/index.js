@@ -13,7 +13,7 @@ db()
 
 app.use(
 	cors({
-		origin: 'http://localhost:5173/',
+		origin: 'https://note-nest.fly.dev/',
 	})
 )
 
@@ -42,7 +42,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/google', googleRoutes)
 app.use('/api/notes', notesRoutes)
 
-const PORT = 3002
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
 	console.log(`Server running on port PORT ${PORT}`)
 })
