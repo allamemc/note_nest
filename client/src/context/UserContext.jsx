@@ -7,11 +7,16 @@ export function UserProvider({ children }) {
 	const userLocalStorage = localStorage.getItem('user')
 	const [user, setUser] = useState(userLocalStorage ? true : false)
 	const [name, setNombre] = useState(null)
+
 	const [id, setId] = useState(null)
 
 	async function fetchUserData() {
 		try {
-			const response = await apiUsers.get('/me')
+			const response = await apiUsers.get('/me', {
+				withCredentials: true,
+				Cookie: document.cookie,
+				credentials: 'include',
+			})
 			if (response.data.name) {
 				setUser(true)
 				setNombre(response.data.name)

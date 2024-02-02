@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 const apiUsers = axios.create({
-	baseURL: '/api/users/',
+	baseURL: 'https://server-note-nest-s.fly.dev/api/users/',
 })
 
 const apiGoogle = axios.create({
-	baseURL: '/api/google/',
+	baseURL: 'https://server-note-nest-s.fly.dev/api/google/',
 })
 
 const apiNotes = axios.create({
-	baseURL: '/api/notes/',
+	baseURL: 'https://server-note-nest-s.fly.dev/api/notes/',
 })
 
 export { apiUsers, apiNotes, apiGoogle }

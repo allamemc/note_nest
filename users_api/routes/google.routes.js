@@ -33,13 +33,14 @@ router.get('/success', (req, res) => {
 		req.session.id = sessionId
 		res.cookie('sessionId', sessionId, {
 			httpOnly: true,
+			sameSite: 'none',
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		})
 		// Redirige al usuario a la página de inicio o dashboard en caso de autenticación exitosa
-		return res.redirect('http://localhost:5173/dashboard')
+		return res.redirect('https://note-nest-c.fly.dev/dashboard')
 	}
 	// Redirige al usuario a la página de error en caso de fallo de autenticación
-	return res.redirect('http://localhost:5173/error')
+	return res.redirect('https://note-nest-c.fly.dev/error')
 })
 
 router.get('/failure', (req, res) => {

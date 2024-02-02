@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+// / <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
@@ -6,13 +6,14 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
 	plugins: [react()],
 	server: {
+		port: 8080,
 		proxy: {
 			//API USUARIOS
-			'/api/users/': 'http://localhost:3000',
+			'/api/users/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
 			//API NOTES
-			'/api/notes/': 'http://localhost:3000',
+			'/api/notes/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
 			//API GOOGLE
-			'/api/google/': 'http://localhost:3000',
+			'/api/google/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
 		},
 	},
 	test: {

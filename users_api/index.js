@@ -8,14 +8,23 @@ const googleRoutes = require('./routes/google.routes')
 const cors = require('cors')
 const passport = require('passport')
 const app = express()
+const cookieParser = require('cookie-parser')
 
 db()
 
 app.use(
 	cors({
-		origin: 'http://localhost:5173',
+		origin: 'https://note-nest-c.fly.dev',
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
+		allowedHeaders: [
+			'Content-Type',
+			'Authorization',
+			'Origin',
+			'X-Requested-With',
+			'Accept',
+			'Set-Cookie',
+		],
+		credentials: true,
 	})
 )
 
@@ -26,11 +35,12 @@ app.use(
 		saveUninitialized: true,
 		cookie: {
 			httpOnly: true,
+			sameSite: 'none',
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		},
 	})
 )
-
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(passport.initialize())

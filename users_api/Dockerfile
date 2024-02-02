@@ -4,9 +4,9 @@
 ARG NODE_VERSION=18.18.0
 FROM node:${NODE_VERSION}-slim as base
 
-LABEL fly_launch_runtime="Vite"
+LABEL fly_launch_runtime="Node.js"
 
-# Vite app lives here
+# Node.js app lives here
 WORKDIR /app
 
 # Set production environment
@@ -25,31 +25,19 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
 # Install node modules
-COPY --link package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
+COPY --link package-lock.json package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Copy application code
 COPY --link . .
 
-# Build application
-RUN pnpm run build
-
-
-
-
-
-# Remove development dependencies
-RUN pnpm prune --prod
-
 
 # Final stage for app image
-FROM nginx
+FROM base
 
 # Copy built application
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app /app
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf /etc/nginx/conf.d
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+CMD [ "pnpm", "run", "start" ]
