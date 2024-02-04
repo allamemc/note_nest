@@ -25,18 +25,13 @@ router.get(
 
 router.get('/success', (req, res) => {
 	if (req.isAuthenticated()) {
+		const sessionId = generateSessionId()
+		req.session.id = sessionId
 		req.session.user = {
 			name: req.user.name,
 			_id: req.user._id,
 		}
-		const sessionId = generateSessionId()
-		req.session.id = sessionId
-		res.cookie('sessionId', sessionId, {
-			httpOnly: true,
-			sameSite: 'none',
-			secure: true,
-			maxAge: 90 * 24 * 60 * 60 * 1000,
-		})
+
 		// Redirige al usuario a la página de inicio o dashboard en caso de autenticación exitosa
 		return res.redirect('https://note-nest-c.fly.dev/dashboard')
 	}

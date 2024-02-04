@@ -14,7 +14,6 @@ export function UserProvider({ children }) {
 		try {
 			const response = await apiUsers.get('/me', {
 				withCredentials: true,
-				Cookie: document.cookie,
 				credentials: 'include',
 			})
 			if (response.data.name) {

@@ -9,9 +9,13 @@ const cors = require('cors')
 const passport = require('passport')
 const app = express()
 const cookieParser = require('cookie-parser')
+const MongoStore = require('connect-mongo')
+const dotenv = require('dotenv') // Add the missing import statement for dotenv
+
+dotenv.config()
 
 db()
-
+app.use(cookieParser())
 app.use(
 	cors({
 		origin: 'https://note-nest-c.fly.dev',
@@ -23,25 +27,38 @@ app.use(
 			'X-Requested-With',
 			'Accept',
 			'Set-Cookie',
+			'Cookie',
+			'Access-Control-Allow-Credentials',
+			'Access-Control-Allow-Origin',
+			'Access-Control-Allow-Headers',
+			'Access-Control-Allow-Methods',
+			'Access-Control-Request-Headers',
+			'Access-Control-Request-Method',
 		],
 		credentials: true,
 	})
 )
 
+app.set('trust proxy', true)
+
 app.use(
 	session({
-		secret: 'your secret here',
-		resave: false,
-		saveUninitialized: true,
+		secret: 'tu secreto aquí',
+		resave: true,
+		saveUninitialized: false,
+		name: 'sessionId',
 		cookie: {
 			httpOnly: true,
-			sameSite: 'none',
+			sameSite: 'none', // Debe ser 'none' en minúsculas
 			secure: true,
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		},
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGO_URI, // Reemplaza esto con la URL de tu base de datos MongoDB
+		}),
 	})
 )
-app.use(cookieParser())
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(passport.initialize())
