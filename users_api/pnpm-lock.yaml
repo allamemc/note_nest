@@ -35,6 +35,9 @@ dependencies:
   passport-google-oauth2:
     specifier: ^0.2.0
     version: 0.2.0
+  passport-local:
+    specifier: ^1.0.0
+    version: 1.0.0
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
@@ -1040,6 +1043,13 @@ packages:
     resolution: {integrity: sha512-62EdPtbfVdc55nIXi0p1WOa/fFMM8v/M8uQGnbcXA4OexZWCnfsEi3wo2buag+Is5oqpuHzOtI64JpHk0Xi5RQ==}
     dependencies:
       passport-oauth2: 1.7.0
+    dev: false
+
+  /passport-local@1.0.0:
+    resolution: {integrity: sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-strategy: 1.0.0
     dev: false
 
   /passport-oauth2@1.7.0:
