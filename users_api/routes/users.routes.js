@@ -42,23 +42,16 @@ router.post('/guest', async (req, res) => {
 	try {
 		// Define el nombre y la contraseña del usuario invitado
 		const guestName = 'Invitado'
-		const guestPassword = '123'
-
 		// Busca el usuario invitado en la base de datos
 		let user = await User.findOne({ name: guestName })
 
-		// Si el usuario invitado no existe, crea uno nuevo
-		if (!user) {
-			user = new User({ name: guestName, password: guestPassword })
+		const sessionId = generateSessionId() // Asegúrate de que esta función genere un ID único
+		req.session.id = sessionId
+		req.session.user = { name: user.name, _id: user._id }
 
-			await user.save()
-		}
+		return res.redirect('https://note-nest-c.fly.dev/dashboard')
 
 		// Inicia sesión con el usuario invitado
-		const sessionId = generateSessionId() // Asegúrate de que esta función genere un ID único
-		req.session.customId = sessionId
-		req.session.user = { name: user.name, _id: user._id }
-		return res.redirect('https://note-nest-c.fly.dev/dashboard')
 	} catch (err) {
 		console.error(err)
 		return res.status(500).json({ message: 'Internal server error' })
@@ -78,21 +71,16 @@ router.get('/me', (req, res) => {
 	return res.json(session.user)
 })
 
-router.post('/logout', (req, res, next) => {
-	// Destroy the session
-	req.session.destroy((err) => {
-		if (err) {
-			console.error(err)
-			return res.status(500).json({ message: 'Internal server error' })
-		}
+router.get('/logout', (req, res) => {
+	if (req.isAuthenticated()) {
+		req.logout()
+		res.json({ message: 'Logout successful' })
+	}
 
-		req.logout(function (err) {
-			if (err) {
-				return next(err)
-			}
-			return res.json({ message: 'Logged out' })
-		})
-	})
+	if (req.session) {
+		req.session.destroy()
+		res.json({ message: 'Logout successful' })
+	}
 })
 
 module.exports = router
