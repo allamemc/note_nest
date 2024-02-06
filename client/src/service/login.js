@@ -1,7 +1,7 @@
 import { apiUsers } from '../api'
 
 export function logout({ setUser, navigate }) {
-	apiUsers.post('/logout').then(() => {
+	apiUsers.get('/logout').then(() => {
 		setUser(false)
 		localStorage.removeItem('user')
 		navigate('/')
