@@ -18,7 +18,7 @@ db()
 app.use(cookieParser())
 app.use(
 	cors({
-		origin: 'https://note-nest-c.fly.dev',
+		origin: 'https://note-nest-es.vercel.app/',
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		allowedHeaders: [
 			'Content-Type',
