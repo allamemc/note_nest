@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
 		const sessionId = generateSessionId() // Asegúrate de que esta función genere un ID único
 		req.session.customId = sessionId
 		req.session.user = { name: user.name, _id: user._id }
-		return res.redirect('https://note-nest-c.fly.dev/dashboard')
+		return res.redirect('/dashboard')
 	} catch (err) {
 		console.error(err)
 		return res.status(500).json({ message: 'Internal server error' })
@@ -49,7 +49,7 @@ router.post('/guest', async (req, res) => {
 		req.session.id = sessionId
 		req.session.user = { name: user.name, _id: user._id }
 
-		return res.redirect('https://note-nest-c.fly.dev/dashboard')
+		return res.redirect('/dashboard')
 
 		// Inicia sesión con el usuario invitado
 	} catch (err) {
@@ -72,11 +72,6 @@ router.get('/me', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-	if (req.isAuthenticated()) {
-		req.logout()
-		res.json({ message: 'Logout successful' })
-	}
-
 	if (req.session) {
 		req.session.destroy()
 		res.json({ message: 'Logout successful' })

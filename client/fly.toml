@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for note-nest-c on 2024-02-02T13:24:12+01:00
+# fly.toml app configuration file generated for note-nest on 2024-02-10T16:03:27+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'note-nest-c'
+app = 'note-nest'
 primary_region = 'mad'
 
 [build]
 
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true

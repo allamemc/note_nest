@@ -9,7 +9,7 @@ const cors = require('cors')
 const passport = require('passport')
 const app = express()
 const cookieParser = require('cookie-parser')
-const MongoStore = require('connect-mongo')
+
 const dotenv = require('dotenv') // Add the missing import statement for dotenv
 
 dotenv.config()
@@ -18,7 +18,7 @@ db()
 app.use(cookieParser())
 app.use(
 	cors({
-		origin: 'https://note-nest-es.vercel.app/',
+		origin: 'http://localhost:8080',
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		allowedHeaders: [
 			'Content-Type',
@@ -49,13 +49,8 @@ app.use(
 		name: 'sessionId',
 		cookie: {
 			httpOnly: true,
-			sameSite: 'none', // Debe ser 'none' en minúsculas
-			secure: true,
 			maxAge: 90 * 24 * 60 * 60 * 1000,
 		},
-		store: MongoStore.create({
-			mongoUrl: process.env.MONGO_URI, // Reemplaza esto con la URL de tu base de datos MongoDB
-		}),
 	})
 )
 

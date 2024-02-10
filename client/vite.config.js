@@ -9,11 +9,11 @@ export default defineConfig({
 		port: 8080,
 		proxy: {
 			//API USUARIOS
-			'/api/users/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
+			'/api/users/': 'http://localhost:3000/',
 			//API NOTES
-			'/api/notes/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
+			'/api/notes/': 'http://localhost:3000/',
 			//API GOOGLE
-			'/api/google/': 'https://users-api-dev-spcp.2.ie-1.fl0.io/',
+			'/api/google/': 'http://localhost:3000/',
 		},
 	},
 	test: {
