@@ -33,10 +33,10 @@ router.get('/success', (req, res) => {
 		}
 
 		// Redirige al usuario a la página de inicio o dashboard en caso de autenticación exitosa
-		return res.redirect('http://localhost:8080/dashboard')
+		return res.redirect('https://note-nest.fly.dev/dashboard')
 	}
 	// Redirige al usuario a la página de error en caso de fallo de autenticación
-	return res.redirect('http://localhost:8080/error')
+	return res.redirect('https://note-nest.fly.dev/error')
 })
 
 router.get('/failure', (req, res) => {

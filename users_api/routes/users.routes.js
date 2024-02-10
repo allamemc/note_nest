@@ -20,18 +20,18 @@ router.post('/login', async (req, res) => {
 		if (!user) {
 			// Si el usuario no existe, crea uno nuevo
 			user = new User({ name, password })
-
 			await user.save()
 		} else if (user.password !== password) {
 			// Si el usuario existe, verifica la contraseña
-
 			return res.status(401).json({ message: 'Incorrect password' })
 		}
+
 		// Inicia sesión con el usuario invitado
 		const sessionId = generateSessionId() // Asegúrate de que esta función genere un ID único
 		req.session.customId = sessionId
 		req.session.user = { name: user.name, _id: user._id }
-		return res.redirect('/dashboard')
+
+		return res.redirect('https://note-nest.fly.dev/dashboard')
 	} catch (err) {
 		console.error(err)
 		return res.status(500).json({ message: 'Internal server error' })
@@ -49,7 +49,7 @@ router.post('/guest', async (req, res) => {
 		req.session.id = sessionId
 		req.session.user = { name: user.name, _id: user._id }
 
-		return res.redirect('/dashboard')
+		return res.redirect('https://note-nest.fly.dev/dashboard')
 
 		// Inicia sesión con el usuario invitado
 	} catch (err) {

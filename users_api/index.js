@@ -16,9 +16,10 @@ dotenv.config()
 
 db()
 app.use(cookieParser())
+
 app.use(
 	cors({
-		origin: 'http://localhost:8080',
+		origin: 'https://note-nest.fly.dev',
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		allowedHeaders: [
 			'Content-Type',
@@ -31,9 +32,6 @@ app.use(
 			'Access-Control-Allow-Credentials',
 			'Access-Control-Allow-Origin',
 			'Access-Control-Allow-Headers',
-			'Access-Control-Allow-Methods',
-			'Access-Control-Request-Headers',
-			'Access-Control-Request-Method',
 		],
 		credentials: true,
 	})
@@ -60,7 +58,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/', (req, res) => {
-	res.send('Hello World!')
+	res.json({ message: 'API Users running..' })
 })
 
 app.use('/api/users', userRoutes)

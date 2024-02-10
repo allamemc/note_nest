@@ -9,11 +9,11 @@ export default defineConfig({
 		port: 8080,
 		proxy: {
 			//API USUARIOS
-			'/api/users/': 'http://localhost:3000/',
+			'/api/users/': 'https://s-note-nest.fly.dev/',
 			//API NOTES
-			'/api/notes/': 'http://localhost:3000/',
+			'/api/notes/': 'https://s-note-nest.fly.dev/',
 			//API GOOGLE
-			'/api/google/': 'http://localhost:3000/',
+			'/api/google/': 'https://s-note-nest.fly.dev/',
 		},
 	},
 	test: {
